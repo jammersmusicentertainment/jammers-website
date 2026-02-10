@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal Information | Jammers Music Entertainment</title>
+  
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.css">
+
+  <style>
+    /* Global Styles */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Roboto', sans-serif; background: #0a0a0a; color: #fff; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration:none; color: #ff4b2b; transition: 0.3s; }
+    a:hover { color: #ffd700; }
+
+    /* BURGER MENU & DRAWER NAVIGATION */
+    .menu-btn {
+      position: fixed; top: 20px; right: 20px; z-index: 1100;
+      background: #ff4b2b; color: white; border: none;
+      width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .nav-drawer {
+      position: fixed; top: 0; right: -320px; width: 320px; height: 100%;
+      background: #111; z-index: 1090; transition: 0.4s ease;
+      padding-top: 80px; border-left: 2px solid #ff4b2b; overflow-y: auto;
+    }
+    .nav-drawer.active { right: 0; }
+    .drawer-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7); z-index: 1080; display: none;
+    }
+    .drawer-overlay.active { display: block; }
+    .drawer-section { border-bottom: 1px solid #222; }
+    .collapse-trigger {
+      width: 100%; padding: 18px 25px; background: none; border: none;
+      color: #ffd700; font-family: 'Montserrat'; font-weight: 800;
+      text-transform: uppercase; text-align: left; display: flex;
+      justify-content: space-between; align-items: center; cursor: pointer;
+    }
+    .collapse-content { display: none; background: #0a0a0a; }
+    .nav-drawer ul { list-style: none; padding: 0; }
+    .nav-drawer ul li a {
+      padding: 12px 30px; display: flex; align-items: center; gap: 12px;
+      font-size: 0.8rem; color: #ccc; text-transform: uppercase; border-bottom: 1px solid #1a1a1a;
+    }
+    .nav-drawer ul li a:hover { color: #ff4b2b; background: #161616; }
+
+    /* Unified Header */
+    header {
+      background: linear-gradient(90deg, #b30000, #ff4b2b);
+      padding: 15px 20px; text-align:center; position: sticky;
+      top:0; z-index:1000; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .header-top { display: flex; align-items: center; justify-content: center; gap: 15px; }
+    .header-top img { height: 60px; width: auto; }
+    .header-top h1 {
+      font-family: 'Montserrat', sans-serif; font-size: 1.8rem;
+      text-transform: uppercase; letter-spacing: 1px; font-weight: 900;
+    }
+    header p { color:#ffd700; font-size:1rem; font-style: italic; font-weight: bold; }
+
+    /* Content Styling */
+    .legal-container {
+      max-width: 900px; margin: 50px auto; background: #111;
+      padding: 40px; border-radius: 20px; border: 1px solid #333;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    section { margin-bottom: 50px; scroll-margin-top: 120px; }
+    h2 {
+      font-family: 'Montserrat', sans-serif; color: #ffd700;
+      text-transform: uppercase; border-bottom: 2px solid #ff4b2b;
+      padding-bottom: 10px; margin-bottom: 25px; font-weight: 800;
+    }
+    h3 { color: #ff4b2b; font-size: 1.2rem; margin-top: 20px; font-weight: bold; }
+    p, li { color: #ccc; font-size: 0.95rem; }
+    ul { padding-left: 20px; }
+    .highlight-box {
+      background: rgba(255, 75, 43, 0.1); border-left: 4px solid #ff4b2b;
+      padding: 20px; margin: 20px 0; border-radius: 0 10px 10px 0;
+    }
+
+    footer { background:#050505; padding:40px 20px; text-align:center; margin-top:50px; border-top: 1px solid #333; }
+    footer span { color: #ffd700; font-weight: bold; }
+    .footer-links { margin-top: 15px; }
+    .footer-links a { color: #888; font-size: 0.8rem; margin: 0 10px; }
+  </style>
+</head>
+<body>
+
+  <button class="menu-btn" onclick="toggleMenu()">
+    <i class="fa fa-bars" id="menuIcon"></i>
+  </button>
+
+  <div class="drawer-overlay" onclick="toggleMenu()"></div>
+  <nav class="nav-drawer" id="navDrawer">
+    <div class="drawer-section">
+      <a href="index.html" style="padding: 18px 25px; display: block; color: #ffd700; font-weight: 800;">HOME</a>
+    </div>
+    <div class="drawer-section">
+      <button class="collapse-trigger" onclick="toggleSection('combinedMenu')">
+        ALL SERVICES <i class="fa fa-chevron-down"></i>
+      </button>
+      <div id="combinedMenu" class="collapse-content">
+        <ul>
+      <li><a href="about.html"><i class="fa fa-info-circle"></i> ABOUT JAMMERS</a></li>
+          <li><a href="instrumentals.html"><i class="fa fa-music"></i> INSTRUMENTAL SHOWCASE</a></li>
+          <li><a href="jingle.html"><i class="fa fa-bullhorn"></i> BUSINESS JINGLE PRODUCTION</a></li>
+          <li><a href="radio.html"><i class="fa fa-microphone"></i> RADIO & PODCAST PRODUCTION</a></li>
+          <li><a href="package.html"><i class="fa fa-gift"></i> PROMO BUNDLE PACKAGES</a></li>
+          <li><a href="gigs.html"><i class="fa fa-calendar"></i> LIVE KEYBOARD PERFORMANCES</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="drawer-section">
+      <button class="collapse-trigger" onclick="toggleSection('legalMenu')">
+        LEGAL DOCS <i class="fa fa-chevron-down"></i>
+      </button>
+      <div id="legalMenu" class="collapse-content" style="display: block;">
+        <ul>
+          <li><a href="#privacy" onclick="toggleMenu()"><i class="fa fa-shield"></i> PRIVACY POLICY</a></li>
+          <li><a href="#terms" onclick="toggleMenu()"><i class="fa fa-file-text"></i> TERMS OF SERVICE</a></li>
+          <li><a href="#impressum" onclick="toggleMenu()"><i class="fa fa-info-circle"></i> IMPRESSUM</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="drawer-section">
+      <a href="contact-details.html" style="padding: 15px 25px; display: block; color: #ccc; font-size: 0.85rem;"><i class="fa fa-phone" style="margin-right:10px; color:#ff4b2b;"></i> DIRECT CONTACT</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="header-top">
+      <img src="assets/img/logo.png" alt="Jammers Logo">
+      <h1>Jammers Music Entertainment</h1>
+    </div>
+    <p>"Pag Jammers ka, iba ka"</p>
+  </header>
+
+  <main class="container">
+    <div class="legal-container">
+      
+      <section id="privacy">
+        <h2><i class="fa fa-shield"></i> Privacy Policy</h2>
+        <p>Your privacy is important to us. This policy explains how <strong>Jammers Music Entertainment</strong> handles your information.</p>
+        
+        <h3>1. Information Collection</h3>
+        <p>When you use our Project Inquiry Form, we collect your name, email address, and contact number. This information is used solely for responding to your business inquiries and managing your projects.</p>
+        
+        <h3>2. Data Protection</h3>
+        <p>We do not sell, trade, or otherwise transfer your personal information to outside parties. Your data is kept confidential and is only accessible by the Jammers Production Team.</p>
+        
+        <div class="highlight-box">
+          <strong>Note:</strong> By submitting our forms, you agree to our collection of data for business communication purposes only.
+        </div>
+      </section>
+
+      <hr style="border-color: #333;">
+
+      <section id="terms">
+        <h2><i class="fa fa-file-text"></i> Terms of Service</h2>
+        
+        <h3>1. Project Bookings</h3>
+        <p>All projects require an initial agreement on rates and timeline. For bundle packages, a downpayment may be required before production begins.</p>
+        
+        <h3>2. Revisions</h3>
+        <p>Most of our services include <strong>3 free revisions</strong>. Any additional revisions beyond this will be subject to an extra charge as stated in our pricing guides.</p>
+        
+        <h3>3. Usage Rights</h3>
+        <p>Standard projects include a lifetime commercial license. However, a <strong>Full Rights Buyout</strong> is an optional add-on if the client wishes to own the intellectual property exclusively.</p>
+      </section>
+
+      <hr style="border-color: #333;">
+
+      <section id="impressum">
+        <h2><i class="fa fa-info-circle"></i> Impressum</h2>
+        <p>Official Information according to business standards:</p>
+        <ul>
+          <li><strong>Entity Name:</strong> Jammers Music Entertainment</li>
+          <li><strong>Founding Year:</strong> 2016</li>
+          <li><strong>Lead Producer:</strong> Ken Dela Rosa</li>
+          <li><strong>Location:</strong> Metro Manila / Bulacan / Cavite / Laguna (Service Areas)</li>
+          <li><strong>Contact:</strong> jammers.official.2016@gmail.com</li>
+          <li><strong>Phone:</strong> +639 460 04 3760</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <span>Jammers Music Entertainment</span>. All Rights Reserved.</p>
+    <div class="footer-links">
+      <a href="#privacy">Privacy Policy</a> | 
+      <a href="#terms">Terms of Service</a> | 
+      <a href="#impressum">Impressum</a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navDrawer').classList.toggle('active');
+      document.querySelector('.drawer-overlay').classList.toggle('active');
+      const icon = document.getElementById('menuIcon');
+      icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times');
+    }
+
+    function toggleSection(id) {
+      const element = document.getElementById(id);
+      element.style.display = (element.style.display === "block") ? "none" : "block";
+    }
+  </script>
+
+</body>
+</html>

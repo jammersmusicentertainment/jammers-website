@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Jammers Music Entertainment</title>
+  
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.css">
+
+  <style>
+    /* Global Styles & Branding */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Roboto', sans-serif; background: #0a0a0a; color: #fff; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration:none; color: inherit; transition: 0.3s; }
+
+    /* BURGER MENU & DRAWER NAVIGATION */
+    .menu-btn {
+      position: fixed; top: 20px; right: 20px; z-index: 1100;
+      background: #ff4b2b; color: white; border: none;
+      width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .nav-drawer {
+      position: fixed; top: 0; right: -320px; width: 320px; height: 100%;
+      background: #111; z-index: 1090; transition: 0.4s ease;
+      padding-top: 80px; border-left: 2px solid #ff4b2b; overflow-y: auto;
+    }
+    .nav-drawer.active { right: 0; }
+    .drawer-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7); z-index: 1080; display: none;
+    }
+    .drawer-overlay.active { display: block; }
+    .drawer-section { border-bottom: 1px solid #222; }
+    .collapse-trigger {
+      width: 100%; padding: 18px 25px; background: none; border: none;
+      color: #ffd700; font-family: 'Montserrat'; font-weight: 800;
+      text-transform: uppercase; text-align: left; display: flex;
+      justify-content: space-between; align-items: center; cursor: pointer;
+    }
+    .collapse-content { display: none; background: #0a0a0a; }
+    .nav-drawer ul { list-style: none; padding: 0; }
+    .nav-drawer ul li a {
+      padding: 12px 30px; display: flex; align-items: center; gap: 12px;
+      font-size: 0.8rem; color: #ccc; text-transform: uppercase; border-bottom: 1px solid #1a1a1a;
+    }
+    .nav-drawer ul li a:hover { color: #ff4b2b; background: #161616; }
+
+    /* Unified Header */
+    header {
+      background: linear-gradient(90deg, #b30000, #ff4b2b);
+      padding: 15px 20px; text-align:center; position: sticky;
+      top:0; z-index:1000; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .header-top { display: flex; align-items: center; justify-content: center; gap: 15px; }
+    .header-top img { height: 60px; width: auto; }
+    .header-top h1 {
+      font-family: 'Montserrat', sans-serif; font-size: 1.8rem;
+      color:#fff; text-transform: uppercase; letter-spacing: 1px; font-weight: 900;
+    }
+    header p { color:#ffd700; font-size:1rem; font-style: italic; font-weight: bold; }
+
+    /* Contact Cards */
+    .contact-card {
+      background: linear-gradient(145deg, #1a1a1a, #262626);
+      padding: 30px; border-radius: 15px; border-left: 5px solid #ff4b2b;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6); height: 100%;
+    }
+    .contact-card h2 {
+      font-family: 'Montserrat', sans-serif; color: #ffd700;
+      font-size: 1.4rem; margin-bottom: 20px; text-transform: uppercase;
+      border-bottom: 1px solid #333; padding-bottom: 10px;
+    }
+    .contact-item i { color: #ff4b2b; margin-right: 10px; }
+    .contact-item strong { display: block; color: #ff4b2b; font-size: 0.8rem; text-transform: uppercase; margin-top: 15px; }
+    .contact-item p, .contact-item a { font-size: 1rem; color: #eee; }
+
+    /* Form Section */
+    .form-wrapper {
+      background: #111; padding: 40px 30px; border-radius: 20px;
+      border: 1px solid #333; margin-top: 40px;
+    }
+    .form-wrapper h2 { text-align: center; color: #ffd700; margin-bottom: 30px; text-transform: uppercase; font-family: 'Montserrat'; font-weight: 900; }
+
+    .form-control, .form-select {
+      background: #0a0a0a !important; border: 1px solid #444 !important;
+      color: #fff !important; padding: 12px;
+    }
+
+    .privacy-note {
+      background: #1a0505; padding: 15px; border-radius: 8px;
+      font-size: 0.75rem; color: #ccc; border: 1px solid #440000; margin-top: 10px;
+    }
+
+    .submit-btn {
+      background: linear-gradient(90deg, #b30000, #ff4b2b);
+      color: #fff; padding: 15px; border: none; border-radius: 8px;
+      font-weight: 900; text-transform: uppercase; width: 100%; cursor: pointer;
+    }
+    .submit-btn:hover { transform: scale(1.01); box-shadow: 0 5px 15px rgba(255, 75, 43, 0.4); }
+
+    footer { background:#050505; padding:40px 20px; text-align:center; margin-top:40px; border-top: 1px solid #333; }
+    footer span { color: #ffd700; font-weight: bold; }
+    .footer-links { margin-top: 15px; }
+    .footer-links a { color: #888; font-size: 0.8rem; margin: 0 10px; }
+    .footer-links a:hover { color: #ff4b2b; }
+  </style>
+</head>
+<body>
+
+  <button class="menu-btn" onclick="toggleMenu()">
+    <i class="fa fa-bars" id="menuIcon"></i>
+  </button>
+
+  <div class="drawer-overlay" onclick="toggleMenu()"></div>
+  <nav class="nav-drawer" id="navDrawer">
+    <div class="drawer-section">
+      <a href="index.html" style="padding: 18px 25px; display: block; color: #ffd700; font-weight: 800;">HOME</a>
+    </div>
+    <div class="drawer-section">
+      <button class="collapse-trigger" onclick="toggleSection('combinedMenu')">
+        SERVICES & FAQ <i class="fa fa-chevron-down"></i>
+      </button>
+      <div id="combinedMenu" class="collapse-content">
+        <ul>
+      <li><a href="about.html"><i class="fa fa-info-circle"></i> ABOUT JAMMERS</a></li>
+          <li><a href="instrumentals.html"><i class="fa fa-music"></i> INSTRUMENTAL SHOWCASE</a></li>
+          <li><a href="jingle.html"><i class="fa fa-bullhorn"></i> BUSINESS JINGLE PRODUCTION</a></li>
+          <li><a href="radio.html"><i class="fa fa-microphone"></i> RADIO & PODCAST PRODUCTION</a></li>
+          <li><a href="package.html"><i class="fa fa-gift"></i> PROMO BUNDLE PACKAGES</a></li>
+          <li><a href="gigs.html"><i class="fa fa-calendar"></i> LIVE KEYBOARD PERFORMANCES</a></li>
+          <li><a href="faq1.html"><i class="fa fa-info-circle"></i> INSTRUMENTAL & BEAT FAQ</a></li>
+          <li><a href="faq2.html"><i class="fa fa-tags"></i> VOCAL & PRODUCTION PRICE LIST</a></li>
+          <li><a href="faq3.html"><i class="fa fa-certificate"></i> JINGLE & LICENSING FAQ</a></li>
+          <li><a href="faq4.html"><i class="fa fa-list"></i> INSTRUMENTAL & BEAT PRICE LIST</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="drawer-section">
+      <a href="contact-details.html" style="padding: 15px 25px; display: block; color: #ff4b2b; font-weight: bold; font-size: 0.85rem;"><i class="fa fa-phone" style="margin-right:10px;"></i> DIRECT CONTACT</a>
+      <a href="legal.html" style="padding: 15px 25px; display: block; color: #ccc; font-size: 0.85rem;"><i class="fa fa-shield" style="margin-right:10px; color:#ff4b2b;"></i> PRIVACY POLICY</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="header-top">
+      <img src="assets/img/logo.png" alt="Jammers Logo">
+      <h1>Jammers Music Entertainment</h1>
+    </div>
+    <p>"Pag Jammers ka, iba ka"</p>
+  </header>
+
+  <main class="container py-5">
+    <div class="row">
+      <div class="col-lg-6 mb-4">
+        <div class="contact-card">
+          <h2><i class="fa fa-address-card"></i> Direct Contact</h2>
+          <div class="contact-item">
+            <strong><i class="fa fa-envelope"></i> Email Addresses</strong>
+            <p><a href="mailto:jammers.official.2016@gmail.com">jammers.official.2016@gmail.com</a></p>
+            <p><a href="mailto:kenjrbeatstraxx@gmail.com">kenjrbeatstraxx@gmail.com</a></p>
+            <strong><i class="fa fa-phone"></i> Phone Number</strong>
+            <p>+639 460 04 3760</p>
+            <strong><i class="fa fa-clock-o"></i> Office Hours</strong>
+            <p>Mon - Sat: 9:00 AM - 9:00 PM<br>Sunday: By Appointment</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mb-4">
+        <div class="contact-card">
+          <h2><i class="fa fa-share-alt"></i> Follow & Message</h2>
+          <div class="contact-item">
+            <strong><i class="fa fa-facebook-square"></i> Official Page</strong>
+            <p><a href="https://www.facebook.com/JAMMERSOFFICIALNUMBERONE" target="_blank">Jammers Music Entertainment</a></p>
+            <strong><i class="fa fa-users"></i> Production Team</strong>
+            <p><a href="https://www.facebook.com/keno.delarosa.06" target="_blank">Keno Dela Rosa</a></p>
+            <p><a href="https://www.facebook.com/DARYLSMITH20" target="_blank">Daryl Villareal</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-wrapper">
+      <h2>Project Inquiry Form</h2>
+      <form name="contact-jammers" method="POST" data-netlify="true" action="/success.html" netlify-honeypot="bot-field" class="row">
+        <input type="hidden" name="form-name" value="contact-jammers" />
+        <p class="d-none">
+          <label><input name="bot-field" /></label>
+        </p>
+
+        <div class="col-md-6 mb-3">
+          <label style="color: #ff4b2b; font-weight: bold; font-size: 0.85rem;">Full Name *</label>
+          <input type="text" name="name" class="form-control" required placeholder="Juan Dela Cruz">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label style="color: #ff4b2b; font-weight: bold; font-size: 0.85rem;">Email Address *</label>
+          <input type="email" name="email" class="form-control" required placeholder="juan@example.com">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label style="color: #ff4b2b; font-weight: bold; font-size: 0.85rem;">Company Name</label>
+          <input type="text" name="company" class="form-control" placeholder="Business Name (Optional)">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label style="color: #ff4b2b; font-weight: bold; font-size: 0.85rem;">Contact Number *</label>
+          <input type="tel" name="phone" class="form-control" required placeholder="09XX XXX XXXX">
+        </div>
+        <div class="col-12 mb-3">
+          <label style="color: #ff4b2b; font-weight: bold; font-size: 0.85rem;">Select Service *</label>
+          <select name="service" class="form-select" required>
+            <option value="" disabled selected>Select a service...</option>
+            <option value="Jingle Production">Jingle Production</option>
+            <option value="Vocal Editing">Vocal Editing / Tuning</option>
+            <option value="Beats/Instrumentals">Beats / Instrumentals</option>
+            <option value="Live Gig">Live Keyboard Gig</option>
+            <option value="Podcast/Radio">Radio / Podcast Production</option>
+          </select>
+        </div>
+        <div class="col-12 mb-4">
+          <label style="color: #ff4b2b; font-weight: bold; font-size: 0.85rem;">Message / Project Details</label>
+          <textarea name="message" class="form-control" rows="4" placeholder="Tell us more about your project..."></textarea>
+        </div>
+        
+        <div class="col-12">
+          <div class="privacy-note">
+            <strong>Privacy Disclaimer:</strong> Any information submitted here is strictly for business inquiries only.
+          </div>
+          <div class="mt-3 mb-4">
+            <input type="checkbox" name="agree" required>
+            <span class="ms-2" style="font-size: 0.85rem;">I agree that this information is for business purposes only.</span>
+          </div>
+          <button type="submit" class="submit-btn">Send Inquiry</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <span>Jammers Music Entertainment</span>. All Rights Reserved.</p>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a> | 
+      <a href="terms.html">Terms of Service</a> | 
+      <a href="impressum.html">Impressum</a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navDrawer').classList.toggle('active');
+      document.querySelector('.drawer-overlay').classList.toggle('active');
+      const icon = document.getElementById('menuIcon');
+      icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times');
+    }
+
+    function toggleSection(id) {
+      const element = document.getElementById(id);
+      element.style.display = (element.style.display === "block") ? "none" : "block";
+    }
+  </script>
+
+</body>
+</html>

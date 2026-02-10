@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Jammers Music Entertainment</title>
+  
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <style>
+    /* Global Styles */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Roboto', sans-serif; background: #0a0a0a; color: #fff; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration:none; color: inherit; transition: 0.3s; }
+
+    /* BURGER MENU & DRAWER NAVIGATION */
+    .menu-btn {
+      position: fixed; top: 20px; right: 20px; z-index: 1100;
+      background: #ff4b2b; color: white; border: none;
+      width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .nav-drawer {
+      position: fixed; top: 0; right: -320px; width: 320px; height: 100%;
+      background: #111; z-index: 1090; transition: 0.4s ease;
+      padding-top: 80px; border-left: 2px solid #ff4b2b; overflow-y: auto;
+    }
+    .nav-drawer.active { right: 0; }
+    .drawer-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7); z-index: 1080; display: none;
+    }
+    .drawer-overlay.active { display: block; }
+    .drawer-section { border-bottom: 1px solid #222; }
+    .collapse-trigger {
+      width: 100%; padding: 18px 25px; background: none; border: none;
+      color: #ffd700; font-family: 'Montserrat'; font-weight: 800;
+      text-transform: uppercase; text-align: left; display: flex;
+      justify-content: space-between; align-items: center; cursor: pointer;
+    }
+    .collapse-content { display: none; background: #0a0a0a; }
+    .nav-drawer ul { list-style: none; padding: 0; }
+    .nav-drawer ul li a {
+      padding: 12px 30px; display: flex; align-items: center; gap: 12px;
+      font-size: 0.8rem; color: #ccc; text-transform: uppercase; border-bottom: 1px solid #1a1a1a;
+    }
+    .nav-drawer ul li a:hover { color: #ff4b2b; background: #161616; }
+
+    /* Header Styling */
+    header { background: linear-gradient(90deg, #b30000, #ff4b2b); padding: 15px 20px; text-align:center; position: sticky; top:0; z-index:1000; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+    .header-top { display: flex; align-items: center; justify-content: center; gap: 15px; }
+    .header-top img { height: 60px; }
+    .header-top h1 { font-family: 'Montserrat'; font-size: 1.8rem; color:#fff; text-transform: uppercase; font-weight: 900; }
+    header p { color:#ffd700; font-size:1rem; font-style: italic; font-weight: bold; }
+
+    /* About Content Styling */
+    .about-content { padding: 60px 20px; }
+    .content-card { background: #111; padding: 40px; border-radius: 20px; border-left: 5px solid #ff4b2b; margin-bottom: 30px; border-right: 1px solid #222; border-top: 1px solid #222; border-bottom: 1px solid #222; }
+    .section-title { font-family: 'Montserrat'; color: #ffd700; text-transform: uppercase; font-weight: 900; margin-bottom: 20px; font-size: 1.8rem; }
+    
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 40px; }
+    .team-member { background: linear-gradient(145deg, #1a1a1a, #222); padding: 30px; border-radius: 15px; text-align: center; border: 1px solid #333; }
+    .team-member h4 { color: #ffd700; font-family: 'Montserrat'; font-weight: 800; margin-bottom: 5px; }
+    .team-member p { color: #ff4b2b; font-weight: bold; font-size: 0.9rem; margin-bottom: 10px; }
+    .team-member small { color: #bbb; display: block; line-height: 1.4; }
+
+    .slogan-box { background: #1a0505; border: 1px dashed #ff4b2b; padding: 30px; border-radius: 15px; margin-top: 20px; }
+    .slogan-box ul { list-style: none; padding: 0; }
+    .slogan-box li { margin-bottom: 10px; color: #ccc; }
+    .slogan-box li i { color: #ffd700; margin-right: 10px; }
+
+    footer { background:#050505; padding:50px 20px; text-align:center; border-top: 1px solid #333; margin-top: 50px; }
+    footer span { color: #ffd700; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <button class="menu-btn" onclick="toggleMenu()">
+    <i class="fa fa-bars" id="menuIcon"></i>
+  </button>
+
+  <div class="drawer-overlay" onclick="toggleMenu()"></div>
+  <nav class="nav-drawer" id="navDrawer">
+    <div class="drawer-section">
+      <a href="index.html" style="padding: 18px 25px; display: block; color: #ffd700; font-weight: 800;">HOME</a>
+    </div>
+    <div class="drawer-section">
+      <button class="collapse-trigger" onclick="toggleSection('combinedMenu')">
+        SERVICES & FAQ <i class="fa fa-chevron-down"></i>
+      </button>
+      <div id="combinedMenu" class="collapse-content">
+        <ul>
+          <li><a href="about.html" style="color:#ff4b2b;"><i class="fa fa-info-circle"></i> ABOUT JAMMERS</a></li>
+          <li><a href="instrumentals.html"><i class="fa fa-music"></i> INSTRUMENTAL SHOWCASE</a></li>
+          <li><a href="jingle.html"><i class="fa fa-bullhorn"></i> BUSINESS JINGLE PRODUCTION</a></li>
+          <li><a href="radio.html"><i class="fa fa-microphone"></i> RADIO & PODCAST PRODUCTION</a></li>
+          <li><a href="package.html"><i class="fa fa-gift"></i> PROMO BUNDLE PACKAGES</a></li>
+          <li><a href="gigs.html"><i class="fa fa-calendar"></i> LIVE KEYBOARD PERFORMANCES</a></li>
+          <li><a href="faq1.html"><i class="fa fa-info-circle"></i> INSTRUMENTAL & BEAT FAQ</a></li>
+          <li><a href="faq2.html"><i class="fa fa-tags"></i> VOCAL & PRODUCTION PRICE LIST</a></li>
+          <li><a href="faq3.html"><i class="fa fa-certificate"></i> JINGLE & LICENSING FAQ</a></li>
+          <li><a href="faq4.html"><i class="fa fa-list"></i> INSTRUMENTAL & BEAT PRICE LIST</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="drawer-section">
+      <a href="contact-details.html" style="padding: 15px 25px; display: block; color: #ccc; font-size: 0.85rem;"><i class="fa fa-phone" style="margin-right:10px; color:#ff4b2b;"></i> DIRECT CONTACT</a>
+      <a href="legal.html" style="padding: 15px 25px; display: block; color: #ccc; font-size: 0.85rem;"><i class="fa fa-shield" style="margin-right:10px; color:#ff4b2b;"></i> PRIVACY POLICY</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="header-top">
+      <img src="assets/img/logo.png" alt="Jammers Logo">
+      <h1>Jammers Music Entertainment</h1>
+    </div>
+    <p>"Pag Jammers Ka, Iba Ka!"</p>
+  </header>
+
+  <main class="container about-content">
+    
+    <div class="content-card animate__animated animate__fadeInUp">
+      <h2 class="section-title">Our Story</h2>
+      <p>Jammers Music Entertainment was built on a shared belief: talent should never be silenced by limitation. Jammers began as a collective of blind creatives who discovered music not only as an art form but as a powerful voice. What started within a school environment grew into something much greater as we realized that music has the power to change how the world sees us—and how we see ourselves.</p>
+      <p>In our early years, we focused on songwriting and performance. As our passion grew, we naturally transitioned into music production, mastering how sound is created, shaped, and delivered with purpose. Through hands-on experience and constant collaboration, we evolved from artists into producers—creating audio that is not just heard, but felt.</p>
+    </div>
+
+    <div class="content-card animate__animated animate__fadeInUp">
+      <h2 class="section-title">Why We Exist</h2>
+      <p>We recognized a gap in the industry—a lack of inclusive, story-driven, and community-rooted music production. Many services today prioritize trends and speed over depth. As blind musicians and producers, our relationship with sound is fundamentally different. We listen deeper. We notice the fine details that others might overlook. This unique perspective is our greatest strength and the foundation of Jammers Music Entertainment.</p>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-md-6">
+        <div class="content-card h-100">
+          <h2 class="section-title">Our Mission</h2>
+          <p>Our mission is to empower voices through music and sound by creating high-quality, meaningful audio. We aim to prove that disability is never a barrier to excellence. We strive to elevate stories and provide professional production services where limitations are often assumed.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="content-card h-100">
+          <h2 class="section-title">Our Vision</h2>
+          <p>Our vision is to become a trusted creative partner globally, reshaping how the music industry views talent and accessibility. We envision a future where creative spaces are inclusive by design and artists with disabilities are recognized as leaders.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-card">
+      <h2 class="section-title">Slogan Means</h2>
+      <p>“Pag Jammers ka, iba ka” is more than just a tagline—it is our mindset. It means:</p>
+      <div class="slogan-box">
+        <ul>
+          <li><i class="fa fa-star"></i> Being "different" does not mean being "less."</li>
+          <li><i class="fa fa-star"></i> Limitation does not cancel capability.</li>
+          <li><i class="fa fa-star"></i> Sound does not need sight to be powerful.</li>
+          <li><i class="fa fa-star"></i> Being “iba” means bringing a unique perspective and deeper listening.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 class="section-title text-center mt-5">Meet the Team</h2>
+    <div class="team-grid">
+      <div class="team-member">
+        <h4>Daryl Agnes Villareal</h4>
+        <p>Founder</p>
+        <small>Singer, Songwriter, Producer, Social Media Manager</small>
+      </div>
+      <div class="team-member">
+        <h4>Ken Dela Rosa</h4>
+        <p>Co-Founder</p>
+        <small>Producer, Arranger, Songwriter, Singer</small>
+      </div>
+      <div class="team-member">
+        <h4>Timothy De Guzman</h4>
+        <p>Team Member</p>
+        <small>Finance Officer, Singer, Songwriter</small>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <span>Jammers Music Entertainment</span>. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navDrawer').classList.toggle('active');
+      document.querySelector('.drawer-overlay').classList.toggle('active');
+      const icon = document.getElementById('menuIcon');
+      icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times');
+    }
+
+    function toggleSection(id) {
+      const element = document.getElementById(id);
+      element.style.display = (element.style.display === "block") ? "none" : "block";
+    }
+  </script>
+</body>
+</html>

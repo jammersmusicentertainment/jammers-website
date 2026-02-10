@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jingle Services | Jammers Music Entertainment</title>
+  
+  <meta name="description" content="Professional jingle making services for businesses and brands. Original lyrics, vocals, and high-recall music production by Jammers.">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.css">
+
+  <style>
+    /* Global Styles & Original Jammers Vibe */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Roboto', sans-serif; background: #0a0a0a; color: #fff; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration:none; color: inherit; transition: 0.3s; }
+
+    /* BURGER MENU & DRAWER NAVIGATION */
+    .menu-btn {
+      position: fixed; top: 20px; right: 20px; z-index: 1100;
+      background: #ff4b2b; color: white; border: none;
+      width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .nav-drawer {
+      position: fixed; top: 0; right: -320px; width: 320px; height: 100%;
+      background: #111; z-index: 1090; transition: 0.4s ease;
+      padding-top: 80px; border-left: 2px solid #ff4b2b; overflow-y: auto;
+    }
+    .nav-drawer.active { right: 0; }
+    .drawer-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7); z-index: 1080; display: none;
+    }
+    .drawer-overlay.active { display: block; }
+    .drawer-section { border-bottom: 1px solid #222; }
+    .collapse-trigger {
+      width: 100%; padding: 18px 25px; background: none; border: none;
+      color: #ffd700; font-family: 'Montserrat'; font-weight: 800;
+      text-transform: uppercase; text-align: left; display: flex;
+      justify-content: space-between; align-items: center; cursor: pointer;
+    }
+    .collapse-content { display: none; background: #0a0a0a; }
+    .nav-drawer ul { list-style: none; padding: 0; }
+    .nav-drawer ul li a {
+      padding: 12px 30px; display: flex; align-items: center; gap: 12px;
+      font-size: 0.8rem; color: #ccc; text-transform: uppercase; border-bottom: 1px solid #1a1a1a;
+    }
+    .nav-drawer ul li a:hover { color: #ff4b2b; background: #161616; }
+
+    /* Unified Header */
+    header {
+      background: linear-gradient(90deg, #b30000, #ff4b2b);
+      padding: 15px 20px; text-align:center; position: sticky;
+      top:0; z-index:1000; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .header-top { display: flex; align-items: center; justify-content: center; gap: 15px; }
+    .header-top img { height: 60px; width: auto; }
+    .header-top h1 {
+      font-family: 'Montserrat', sans-serif; font-size: 1.8rem;
+      text-transform: uppercase; letter-spacing: 1px; font-weight: 900;
+    }
+    header p { color:#ffd700; font-size:1rem; font-style: italic; font-weight: bold; }
+
+    /* Service Cards */
+    .jingle-card {
+      background: #161616; padding: 35px; border-radius: 20px;
+      border-top: 5px solid #ff4b2b; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      height: 100%; transition: 0.3s;
+    }
+    .jingle-card:hover {
+      transform: translateY(-10px); border-top-color: #ffd700;
+      box-shadow: 0 15px 35px rgba(255, 75, 43, 0.2);
+    }
+    .jingle-card h3 {
+      font-family: 'Montserrat', sans-serif; color: #ffd700;
+      font-size: 1.4rem; margin-bottom: 20px; display: flex;
+      align-items: center; gap: 10px; font-weight: 800;
+    }
+    .jingle-card h3 i { color: #ff4b2b; }
+
+    .jingle-card ul { list-style: none; padding: 0; }
+    .jingle-card li {
+      margin-bottom: 12px; color: #ccc; font-size: 0.95rem;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .jingle-card li i { color: #ff4b2b; margin-top: 5px; font-size: 0.8rem; }
+
+    .price-tag {
+      display: block; font-size: 1.6rem; font-weight: 800;
+      color: #ff4b2b; margin-top: 25px; font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Rights & Licensing */
+    .rights-section {
+      background: linear-gradient(145deg, #1a1a1a, #050505);
+      padding: 40px; border-radius: 20px; border: 1px solid #333; margin-top: 50px;
+    }
+    .rights-section h2 {
+      color: #ffd700; margin-bottom: 25px; font-family: 'Montserrat';
+      text-transform: uppercase; text-align: center; font-weight: 800;
+    }
+
+    .license-box {
+      background: rgba(255, 255, 255, 0.03); padding: 25px;
+      border-radius: 12px; border-left: 4px solid #ff4b2b; height: 100%;
+    }
+    .license-box strong { 
+      color: #ff4b2b; display: block; margin-bottom: 15px; 
+      font-size: 1.1rem; text-transform: uppercase;
+    }
+    .license-box p { font-size: 0.9rem; color: #bbb; margin: 0; }
+
+    footer { background:#050505; padding:40px 20px; text-align:center; margin-top:50px; border-top: 1px solid #333; }
+    footer span { color: #ffd700; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <button class="menu-btn" onclick="toggleMenu()">
+    <i class="fa fa-bars" id="menuIcon"></i>
+  </button>
+
+  <div class="drawer-overlay" onclick="toggleMenu()"></div>
+  <nav class="nav-drawer" id="navDrawer">
+    <div class="drawer-section">
+      <a href="index.html" style="padding: 18px 25px; display: block; color: #ffd700; font-weight: 800;">HOME</a>
+    </div>
+    <div class="drawer-section">
+      <button class="collapse-trigger" onclick="toggleSection('combinedMenu')">
+        SERVICES & FAQ <i class="fa fa-chevron-down"></i>
+      </button>
+      <div id="combinedMenu" class="collapse-content">
+        <ul>
+      <li><a href="about.html"><i class="fa fa-info-circle"></i> ABOUT JAMMERS</a></li>
+          <li><a href="instrumentals.html"><i class="fa fa-music"></i> INSTRUMENTAL SHOWCASE</a></li>
+          <li><a href="jingle.html" style="color:#ff4b2b;"><i class="fa fa-bullhorn"></i> BUSINESS JINGLE PRODUCTION</a></li>
+          <li><a href="radio.html"><i class="fa fa-microphone"></i> RADIO & PODCAST PRODUCTION</a></li>
+          <li><a href="package.html"><i class="fa fa-gift"></i> PROMO BUNDLE PACKAGES</a></li>
+          <li><a href="gigs.html"><i class="fa fa-calendar"></i> LIVE KEYBOARD PERFORMANCES</a></li>
+          <li><a href="faq1.html"><i class="fa fa-info-circle"></i> INSTRUMENTAL & BEAT FAQ</a></li>
+          <li><a href="faq2.html"><i class="fa fa-tags"></i> VOCAL & PRODUCTION PRICE LIST</a></li>
+          <li><a href="faq3.html"><i class="fa fa-certificate"></i> JINGLE & LICENSING FAQ</a></li>
+          <li><a href="faq4.html"><i class="fa fa-list"></i> INSTRUMENTAL & BEAT PRICE LIST</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="drawer-section">
+      <a href="contact-details.html" style="padding: 15px 25px; display: block; color: #ccc; font-size: 0.85rem;"><i class="fa fa-phone" style="margin-right:10px; color:#ff4b2b;"></i> DIRECT CONTACT</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="header-top">
+      <img src="assets/img/logo.png" alt="Jammers Logo">
+      <h1>Jammers Music Entertainment</h1>
+    </div>
+    <p>"Pag Jammers ka, iba ka"</p>
+  </header>
+
+  <main class="container py-5">
+    <div class="text-center mb-5">
+      <h2 style="font-family: 'Montserrat', sans-serif; color: #ffd700; text-transform: uppercase; font-size: 2.2rem; font-weight: 900;">Business Jingle Production</h2>
+      <p class="lead text-muted">Give your brand its own unique sound and identity.</p>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="jingle-card">
+          <h3><i class="fa fa-music"></i> Jingle Making</h3>
+          <ul>
+            <li><i class="fa fa-check-circle"></i> Original lyrics and composition</li>
+            <li><i class="fa fa-check-circle"></i> Lead vocals & Backing vocals</li>
+            <li><i class="fa fa-check-circle"></i> Custom Instrumental arrangement</li>
+            <li><i class="fa fa-check-circle"></i> Up to 3 minutes (maximum)</li>
+            <li><i class="fa fa-check-circle"></i> 3 Professional revisions</li>
+          </ul>
+          <span class="price-tag">Starts at ₱6,000</span>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="jingle-card">
+          <h3><i class="fa fa-sliders"></i> Instrumental Only</h3>
+          <ul>
+            <li><i class="fa fa-check-circle"></i> Original custom-made track</li>
+            <li><i class="fa fa-check-circle"></i> Best for background ads & promos</li>
+            <li><i class="fa fa-check-circle"></i> No vocals included</li>
+            <li><i class="fa fa-check-circle"></i> Up to 3 minutes duration</li>
+            <li><i class="fa fa-check-circle"></i> 3 Professional revisions</li>
+          </ul>
+          <span class="price-tag">Starts at ₱3,500</span>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-12 mb-4">
+        <div class="jingle-card">
+          <h3><i class="fa fa-microphone"></i> Voice-Over</h3>
+          <ul>
+            <li><i class="fa fa-check-circle"></i> Clear Filipino or English delivery</li>
+            <li><i class="fa fa-check-circle"></i> Professional studio recording</li>
+            <li><i class="fa fa-check-circle"></i> Script consultation</li>
+            <li><i class="fa fa-check-circle"></i> Broadcast-ready audio</li>
+            <li><i class="fa fa-check-circle"></i> Fast 24-48h turnaround</li>
+          </ul>
+          <span class="price-tag">₱1,000 / minute</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rights-section shadow-lg">
+      <h2><i class="fa fa-shield"></i> Licensing & Rights</h2>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="license-box">
+            <strong><i class="fa fa-file-text-o"></i> Standard License</strong>
+            <p>Included in the price. Lifetime commercial usage for social media, ads, and in-store use. Composition rights remain with Jammers Music Entertainment.</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="license-box">
+            <strong><i class="fa fa-key"></i> Full Rights Buyout</strong>
+            <p>Add <strong>₱5,000</strong> to own the composition and master recording 100%. This gives you exclusive ownership and full control over the material.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <span>Jammers Music Entertainment</span>. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navDrawer').classList.toggle('active');
+      document.querySelector('.drawer-overlay').classList.toggle('active');
+      const icon = document.getElementById('menuIcon');
+      icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times');
+    }
+
+    function toggleSection(id) {
+      const element = document.getElementById(id);
+      element.style.display = (element.style.display === "block") ? "none" : "block";
+    }
+  </script>
+
+</body>
+</html>

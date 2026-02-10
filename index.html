@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jammers Music Entertainment | Official Home</title>
+  
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <style>
+    /* Global Styles */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Roboto', sans-serif; background: #0a0a0a; color: #fff; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration:none; color: inherit; transition: 0.3s; }
+
+    /* BURGER MENU & DRAWER NAVIGATION */
+    .menu-btn {
+      position: fixed; top: 20px; right: 20px; z-index: 1100;
+      background: #ff4b2b; color: white; border: none;
+      width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .nav-drawer {
+      position: fixed; top: 0; right: -320px; width: 320px; height: 100%;
+      background: #111; z-index: 1090; transition: 0.4s ease;
+      padding-top: 80px; border-left: 2px solid #ff4b2b; overflow-y: auto;
+    }
+    .nav-drawer.active { right: 0; }
+    .drawer-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7); z-index: 1080; display: none;
+    }
+    .drawer-overlay.active { display: block; }
+    .drawer-section { border-bottom: 1px solid #222; }
+    .collapse-trigger {
+      width: 100%; padding: 18px 25px; background: none; border: none;
+      color: #ffd700; font-family: 'Montserrat'; font-weight: 800;
+      text-transform: uppercase; text-align: left; display: flex;
+      justify-content: space-between; align-items: center; cursor: pointer;
+    }
+    .collapse-content { display: none; background: #0a0a0a; }
+    .nav-drawer ul { list-style: none; padding: 0; }
+    .nav-drawer ul li a {
+      padding: 12px 30px; display: flex; align-items: center; gap: 12px;
+      font-size: 0.8rem; color: #ccc; text-transform: uppercase; border-bottom: 1px solid #1a1a1a;
+    }
+    .nav-drawer ul li a:hover { color: #ff4b2b; background: #161616; }
+
+    /* ORIGINAL STYLES PRESERVED */
+    .promo-banner { background: #000; color: #fff; text-align: center; padding: 15px 10px; font-family: 'Montserrat'; border-bottom: 2px solid #ff4b2b; position: relative; z-index: 1001; }
+    .promo-title { color: #ffd700; text-transform: uppercase; font-weight: 800; font-size: 0.8rem; margin-bottom: 10px; letter-spacing: 2px; display: block; }
+    .timer-container { display: flex; justify-content: center; gap: 10px; }
+    .timer-block { background: linear-gradient(145deg, #b30000, #ff4b2b); padding: 5px 10px; border-radius: 5px; min-width: 65px; }
+    .timer-val { display: block; font-size: 1.2rem; font-weight: 900; line-height: 1; }
+    .timer-unit { display: block; font-size: 0.6rem; text-transform: uppercase; color: rgba(255,255,255,0.8); }
+
+    header { background: linear-gradient(90deg, #b30000, #ff4b2b); padding: 15px 20px; text-align:center; position: sticky; top:0; z-index:1000; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+    .header-top { display: flex; align-items: center; justify-content: center; gap: 15px; }
+    .header-top img { height: 60px; }
+    .header-top h1 { font-family: 'Montserrat'; font-size: 1.8rem; color:#fff; text-transform: uppercase; font-weight: 900; }
+    header p { color:#ffd700; font-size:1rem; font-style: italic; font-weight: bold; }
+
+    .hero { padding: 100px 20px; background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('assets/img/hero-bg.jpg'); background-size: cover; background-position: center; text-align: center; border-bottom: 3px solid #ff4b2b; }
+    .hero h2 { font-family: 'Montserrat'; font-size: 3.2rem; color: #ffd700; text-transform: uppercase; font-weight: 900; }
+    .hero p { font-size: 1.2rem; color: #fff; max-width: 800px; margin: 20px auto; }
+
+    .specialty-card { background: #111; padding: 30px; border-radius: 12px; border: 1px solid #222; height: 100%; transition: 0.3s; }
+    .specialty-card:hover { border-color: #ff4b2b; background: #161616; transform: translateY(-5px); }
+    .specialty-card i { color: #ff4b2b; font-size: 2rem; margin-bottom: 15px; display: block; }
+    .specialty-card h4 { font-size: 1.1rem; color: #ffd700; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; }
+    .specialty-card p { font-size: 0.9rem; color: #ccc; }
+
+    .process-box { background: #111; border-radius: 20px; border-top: 4px solid #ff4b2b; padding: 30px; height: 100%; transition: 0.3s; }
+    .process-box h5 { color: #ffd700; font-weight: 800; text-transform: uppercase; margin: 15px 0; }
+    
+    .contact-card { background: linear-gradient(145deg, #1a1a1a, #262626); padding: 30px; border-radius: 15px; border-left: 5px solid #ff4b2b; height: 100%; }
+    .contact-card h2 { color: #ffd700; font-size: 1.4rem; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+    .contact-item strong { display: block; color: #ff4b2b; font-size: 0.8rem; text-transform: uppercase; margin-top: 15px; }
+
+    .form-wrapper { background: #111; padding: 45px; border-radius: 25px; border: 1px solid #333; margin-top: 50px; }
+    .form-control, .form-select { background: #0a0a0a !important; border: 1px solid #444 !important; color: #fff !important; padding: 15px; border-radius: 10px; }
+    .submit-btn { background: linear-gradient(90deg, #b30000, #ff4b2b); color: #fff; padding: 18px; border: none; border-radius: 10px; font-weight: 900; text-transform: uppercase; width: 100%; cursor: pointer; letter-spacing: 1px; }
+    .form-note { font-size: 0.85rem; color: #bbb; background: #1a0505; padding: 20px; border-radius: 8px; border: 1px solid #440000; line-height: 1.4; }
+    
+    footer { background:#050505; padding:50px 20px; text-align:center; border-top: 1px solid #333; }
+    footer span { color: #ffd700; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <button class="menu-btn" onclick="toggleMenu()">
+    <i class="fa fa-bars" id="menuIcon"></i>
+  </button>
+
+  <div class="drawer-overlay" onclick="toggleMenu()"></div>
+  <nav class="nav-drawer" id="navDrawer">
+    <div class="drawer-section">
+      <a href="index.html" style="padding: 18px 25px; display: block; color: #ffd700; font-weight: 800;">HOME</a>
+    </div>
+    <div class="drawer-section">
+      <button class="collapse-trigger" onclick="toggleSection('combinedMenu')">
+        SERVICES & FAQ <i class="fa fa-chevron-down"></i>
+      </button>
+      <div id="combinedMenu" class="collapse-content">
+        <ul>
+      <li><a href="about.html"><i class="fa fa-info-circle"></i> ABOUT JAMMERS</a></li>
+          <li><a href="instrumentals.html"><i class="fa fa-music"></i> INSTRUMENTAL SHOWCASE</a></li>
+          <li><a href="jingle.html"><i class="fa fa-bullhorn"></i> BUSINESS JINGLE PRODUCTION</a></li>
+          <li><a href="radio.html"><i class="fa fa-microphone"></i> RADIO & PODCAST PRODUCTION</a></li>
+          <li><a href="package.html"><i class="fa fa-gift"></i> PROMO BUNDLE PACKAGES</a></li>
+          <li><a href="gigs.html"><i class="fa fa-calendar"></i> LIVE KEYBOARD PERFORMANCES</a></li>
+          <li><a href="faq1.html"><i class="fa fa-info-circle"></i> INSTRUMENTAL & BEAT FAQ</a></li>
+          <li><a href="faq2.html"><i class="fa fa-tags"></i> VOCAL & PRODUCTION PRICE LIST</a></li>
+          <li><a href="faq3.html"><i class="fa fa-certificate"></i> JINGLE & LICENSING FAQ</a></li>
+          <li><a href="faq4.html"><i class="fa fa-list"></i> INSTRUMENTAL & BEAT PRICE LIST</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="drawer-section">
+      <a href="contact-details.html" style="padding: 15px 25px; display: block; color: #ccc; font-size: 0.85rem;"><i class="fa fa-phone" style="margin-right:10px; color:#ff4b2b;"></i> DIRECT CONTACT</a>
+      <a href="legal.html" style="padding: 15px 25px; display: block; color: #ccc; font-size: 0.85rem;"><i class="fa fa-shield" style="margin-right:10px; color:#ff4b2b;"></i> PRIVACY POLICY</a>
+    </div>
+  </nav>
+
+  <div class="promo-banner">
+    <span class="promo-title"><i class="fa fa-fire"></i> New Client Promo: 10% Discount Ends In:</span>
+    <div class="timer-container">
+      <div class="timer-block"><span class="timer-val" id="days">00</span><span class="timer-unit">Days</span></div>
+      <div class="timer-block"><span class="timer-val" id="hours">00</span><span class="timer-unit">Hours</span></div>
+      <div class="timer-block"><span class="timer-val" id="minutes">00</span><span class="timer-unit">Mins</span></div>
+      <div class="timer-block"><span class="timer-val" id="seconds">00</span><span class="timer-unit">Secs</span></div>
+    </div>
+  </div>
+
+  <header>
+    <div class="header-top">
+      <img src="assets/img/logo.png" alt="Jammers Logo">
+      <h1>Jammers Music Entertainment</h1>
+    </div>
+    <p>"Pag Jammers Ka, Iba Ka!"</p>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h2 class="animate__animated animate__zoomIn">Transform Your Sound</h2>
+      <p>Your one-stop destination for Professional Audio Production, Sonic Branding, and Premium Live Entertainment Solutions.</p>
+    </div>
+  </section>
+
+  <section class="container py-5">
+    <div class="row g-3">
+      <div class="col-md-3">
+        <div class="specialty-card">
+          <i class="fa fa-bullhorn"></i>
+          <h4>Sonic Branding</h4>
+          <p>Catchy melodies designed to stick in your customers' minds instantly and permanently.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="specialty-card">
+          <i class="fa fa-music"></i>
+          <h4>Multi-Genre</h4>
+          <p>From Pop and Rock to Cinematic scores, we produce custom music in any style for your brand.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="specialty-card">
+          <i class="fa fa-microphone"></i>
+          <h4>Pro Voice-Overs</h4>
+          <p>Access to expert voice talent providing the perfect tone and delivery for your specific scripts.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="specialty-card">
+          <i class="fa fa-film"></i>
+          <h4>Sound Design</h4>
+          <p>Immersive audio layers and effects that make your advertisements feel alive and professional.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container py-5">
+    <div class="text-center mb-5">
+      <h2 style="color: #ffd700; text-transform: uppercase; font-weight: 900;">Our Creative Workflow</h2>
+      <p class="text-muted">A seamless 4-step process to achieve your signature sound.</p>
+    </div>
+    <div class="row g-4 text-center">
+      <div class="col-md-3"><div class="process-box"><div style="font-size: 2rem; color: #ff4b2b; font-weight: 900;">01</div><h5>CONSULTATION</h5><p>We discuss your vision, target audience, and project requirements.</p></div></div>
+      <div class="col-md-3"><div class="process-box"><div style="font-size: 2rem; color: #ff4b2b; font-weight: 900;">02</div><h5>COMPOSITION</h5><p>Our team crafts original lyrics and musical melody based on your brand.</p></div></div>
+      <div class="col-md-3"><div class="process-box"><div style="font-size: 2rem; color: #ff4b2b; font-weight: 900;">03</div><h5>PRODUCTION</h5><p>Professional recording, mixing, and mastering using REAPER software.</p></div></div>
+      <div class="col-md-3"><div class="process-box"><div style="font-size: 2rem; color: #ff4b2b; font-weight: 900;">04</div><h5>DELIVERY</h5><p>High-quality, broadcast-ready audio files delivered directly to you.</p></div></div>
+    </div>
+  </section>
+
+  <section class="container py-4">
+    <div class="row">
+      <div class="col-lg-6 mb-4">
+        <div class="contact-card">
+          <h2><i class="fa fa-address-card"></i> Direct Contact</h2>
+          <div class="contact-item">
+            <strong>Professional Email</strong>
+            <p>jammers.official.2016@gmail.com</p>
+            <strong>Mobile Hotline</strong>
+            <p>+639 460 04 3760</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 mb-4">
+        <div class="contact-card">
+          <h2><i class="fa fa-share-alt"></i> Connect With Us</h2>
+          <div class="contact-item">
+            <strong>Official Facebook Page</strong>
+            <p><a href="https://www.facebook.com/JAMMERSOFFICIALNUMBERONE" target="_blank" style="color:#ff4b2b; font-weight: bold;">Jammers Music Entertainment</a></p>
+            <strong>Follow Our Members</strong>
+            <p>
+              <a href="https://www.facebook.com/keno.delarosa.06" target="_blank" style="color:#ffd700;"><i class="fa fa-facebook-square"></i> Keno Dela Rosa</a> | 
+              <a href="https://www.facebook.com/DARYLSMITH20" target="_blank" style="color:#ffd700;"><i class="fa fa-facebook-square"></i> Daryl Villareal</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container py-5">
+    <div class="form-wrapper">
+      <h2 class="text-center text-warning mb-4" style="font-weight: 900;">PROJECT INQUIRY FORM</h2>
+      
+      <div class="form-note mb-4">
+        <i class="fa fa-shield"></i> <strong>IMPORTANT BUSINESS NOTE:</strong> 
+        The information we collect (Name, Email, Phone) is strictly for <strong>business collaboration and professional inquiry purposes only</strong>. By filling out this form, you agree that Jammers Music Entertainment will use these details solely to communicate regarding your music project.
+      </div>
+
+      <form name="contact-jammers" method="POST" data-netlify="true" action="/success.html" class="row">
+        <input type="hidden" name="form-name" value="contact-jammers" />
+
+        <div class="col-md-6 mb-3">
+          <label class="fw-bold text-danger">Full Name *</label>
+          <input type="text" name="name" class="form-control" required placeholder="Enter your full name">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="fw-bold text-danger">Email Address *</label>
+          <input type="email" name="email" class="form-control" required placeholder="email@example.com">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="fw-bold text-danger">Mobile Number *</label>
+          <input type="tel" name="phone" class="form-control" required placeholder="+639XX XXX XXXX">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="fw-bold text-danger">Select Service *</label>
+          <select name="service" class="form-select" required>
+            <option value="" disabled selected>Choose a service...</option>
+            <option value="Jingle Production">Jingle Production</option>
+            <option value="Vocal Editing">Vocal Editing / Tuning</option>
+            <option value="Beats/Instrumentals">Beats / Instrumentals</option>
+            <option value="Live Gig">Live Performance</option>
+            <option value="Radio Production">Radio & Podcast Production</option>
+          </select>
+        </div>
+        <div class="col-12 mb-4">
+          <label class="fw-bold text-danger">Project Details</label>
+          <textarea name="message" class="form-control" rows="4" placeholder="Briefly describe your project requirements..."></textarea>
+        </div>
+        <div class="col-12">
+          <div class="mb-4">
+            <input type="checkbox" name="agree" required>
+            <span class="ms-2" style="font-size: 0.85rem; color: #ccc;">I confirm that these details are provided for business purposes only.</span>
+          </div>
+          <button type="submit" class="submit-btn">Submit Inquiry</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <span>Jammers Music Entertainment</span>. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navDrawer').classList.toggle('active');
+      document.querySelector('.drawer-overlay').classList.toggle('active');
+      const icon = document.getElementById('menuIcon');
+      icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times');
+    }
+
+    function toggleSection(id) {
+      const element = document.getElementById(id);
+      element.style.display = (element.style.display === "block") ? "none" : "block";
+    }
+
+    const countDownDate = new Date("March 31, 2026 23:59:59").getTime();
+    setInterval(function() {
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+      document.getElementById("days").innerHTML = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+      document.getElementById("hours").innerHTML = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+      document.getElementById("minutes").innerHTML = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+      document.getElementById("seconds").innerHTML = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+    }, 1000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instrumental Portfolio | Jammers Music Entertainment</title>
+  
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.css">
+
+  <style>
+    /* Global Styles */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Roboto', sans-serif; background: #0a0a0a; color: #fff; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration:none; color: inherit; transition: 0.3s; }
+
+    /* BURGER MENU & DRAWER NAVIGATION */
+    .menu-btn {
+      position: fixed; top: 20px; right: 20px; z-index: 1100;
+      background: #ff4b2b; color: white; border: none;
+      width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .nav-drawer {
+      position: fixed; top: 0; right: -320px; width: 320px; height: 100%;
+      background: #111; z-index: 1090; transition: 0.4s ease;
+      padding-top: 80px; border-left: 2px solid #ff4b2b; overflow-y: auto;
+    }
+    .nav-drawer.active { right: 0; }
+    .drawer-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7); z-index: 1080; display: none;
+    }
+    .drawer-overlay.active { display: block; }
+    .drawer-section { border-bottom: 1px solid #222; }
+    .collapse-trigger {
+      width: 100%; padding: 18px 25px; background: none; border: none;
+      color: #ffd700; font-family: 'Montserrat'; font-weight: 800;
+      text-transform: uppercase; text-align: left; display: flex;
+      justify-content: space-between; align-items: center; cursor: pointer;
+    }
+    .collapse-content { display: none; background: #0a0a0a; }
+    .nav-drawer ul { list-style: none; padding: 0; }
+    .nav-drawer ul li a {
+      padding: 12px 30px; display: flex; align-items: center; gap: 12px;
+      font-size: 0.8rem; color: #ccc; text-transform: uppercase; border-bottom: 1px solid #1a1a1a;
+    }
+    .nav-drawer ul li a:hover { color: #ff4b2b; background: #161616; }
+
+    /* Unified Header */
+    header {
+      background: linear-gradient(90deg, #b30000, #ff4b2b);
+      padding: 15px 20px; text-align:center; position: sticky;
+      top:0; z-index:1000; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .header-top { display: flex; align-items: center; justify-content: center; gap: 15px; }
+    .header-top img { height: 60px; width: auto; }
+    .header-top h1 {
+      font-family: 'Montserrat', sans-serif; font-size: 1.8rem;
+      text-transform: uppercase; letter-spacing: 1px; font-weight: 900;
+    }
+    header p { color:#ffd700; font-size:1rem; font-style: italic; font-weight: bold; }
+
+    /* Jukebox Player Container */
+    .jukebox-wrapper {
+      max-width: 750px; margin: 40px auto; background: #111;
+      padding: 30px; border-radius: 20px; border-top: 4px solid #ff4b2b;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .jukebox-header { text-align: center; margin-bottom: 25px; }
+    .jukebox-header h2 {
+      color: #ffd700; font-family: 'Montserrat'; text-transform: uppercase;
+      font-size: 1.6rem; margin-bottom: 5px; font-weight: 800;
+    }
+
+    /* Legal Disclaimer */
+    .disclaimer-box {
+      background: #0a0a0a; border: 1px solid #333; padding: 15px;
+      border-radius: 8px; font-size: 0.8rem; color: #aaa;
+      margin-bottom: 25px; line-height: 1.5;
+    }
+    .disclaimer-box strong { color: #ff4b2b; }
+
+    /* Styled Select Dropdown */
+    .track-select {
+      width: 100%; padding: 15px; background: #1a1a1a; color: #fff;
+      border: 1px solid #444; border-radius: 8px; font-size: 1rem;
+      margin-bottom: 20px; cursor: pointer;
+    }
+    .track-select:focus { border-color: #ff4b2b; outline: none; }
+
+    /* Player Display Area */
+    #playerDisplay {
+      display: none; text-align: center; padding: 20px;
+      background: #0a0a0a; border-radius: 12px; animation: fadeIn 0.4s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .now-playing-title {
+      color: #ffd700; font-weight: bold; margin-bottom: 15px;
+      font-size: 1.1rem; font-family: 'Montserrat';
+    }
+
+    audio { 
+      width: 100%; filter: invert(100%) hue-rotate(180deg) brightness(1.5);
+    }
+
+    footer { background:#050505; padding:40px 20px; text-align:center; margin-top:40px; border-top: 1px solid #333; }
+    footer span { color: #ffd700; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <button class="menu-btn" onclick="toggleMenu()">
+    <i class="fa fa-bars" id="menuIcon"></i>
+  </button>
+
+  <div class="drawer-overlay" onclick="toggleMenu()"></div>
+  <nav class="nav-drawer" id="navDrawer">
+    <div class="drawer-section">
+      <a href="index.html" style="padding: 18px 25px; display: block; color: #ffd700; font-weight: 800;">HOME</a>
+    </div>
+    <div class="drawer-section">
+      <button class="collapse-trigger" onclick="toggleSection('combinedMenu')">
+        SERVICES & SHOWCASE <i class="fa fa-chevron-down"></i>
+      </button>
+      <div id="combinedMenu" class="collapse-content" style="display: block;">
+        <ul>
+      <li><a href="about.html"><i class="fa fa-info-circle"></i> ABOUT JAMMERS</a></li>
+          <li><a href="instrumentals.html" style="color:#ff4b2b;"><i class="fa fa-music"></i> INSTRUMENTAL SHOWCASE</a></li>
+          <li><a href="jingle.html"><i class="fa fa-bullhorn"></i> BUSINESS JINGLE PRODUCTION</a></li>
+          <li><a href="radio.html"><i class="fa fa-microphone"></i> RADIO & PODCAST PRODUCTION</a></li>
+          <li><a href="package.html"><i class="fa fa-gift"></i> PROMO BUNDLE PACKAGES</a></li>
+          <li><a href="gigs.html"><i class="fa fa-calendar"></i> LIVE KEYBOARD PERFORMANCES</a></li>
+          <li><a href="faq1.html"><i class="fa fa-info-circle"></i> INSTRUMENTAL & BEAT FAQ</a></li>
+          <li><a href="faq2.html"><i class="fa fa-tags"></i> VOCAL & PRODUCTION PRICE LIST</a></li>
+          <li><a href="faq3.html"><i class="fa fa-certificate"></i> JINGLE & LICENSING FAQ</a></li>
+          <li><a href="faq4.html"><i class="fa fa-list"></i> INSTRUMENTAL & BEAT PRICE LIST</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="drawer-section">
+      <a href="contact-details.html" style="padding: 15px 25px; display: block; color: #ccc; font-size: 0.85rem;"><i class="fa fa-phone" style="margin-right:10px; color:#ff4b2b;"></i> DIRECT CONTACT</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="header-top">
+      <img src="assets/img/logo.png" alt="Jammers Logo">
+      <h1>Jammers Music Entertainment</h1>
+    </div>
+    <p>"Pag Jammers Ka, Iba Ka!"</p>
+  </header>
+
+  <main class="container">
+    <div class="jukebox-wrapper">
+      <div class="jukebox-header">
+        <h2><i class="fa fa-play-circle"></i> Instrumental Showcase</h2>
+        <p class="text-muted small">Arrangements by Jammers Music Entertainment Producers</p>
+      </div>
+
+      <div class="disclaimer-box">
+        <strong>LEGAL NOTICE:</strong> All musical arrangements and backing tracks featured in this portfolio are produced by <strong>Jammers Music Entertainment</strong>. These covers are intended for demonstration and portfolio purposes only. 
+        <br><br>
+        Please note that we do not own the original intellectual property or copyrights of the compositions. <strong>The user or client is responsible for coordinating directly with the original copyright holders.</strong>
+      </div>
+      
+      <select id="musicPicker" class="track-select" onchange="playSelectedTrack()">
+        <option value="" disabled selected>-- Select an Arrangement to Play --</option>
+        <option value="assets/media/i21.mp3">Akala Nyo - [Instrumental Version]</option>
+        <option value="assets/media/i5.mp3">Ako Muna - [Instrumental Version]</option>
+        <option value="assets/media/i15.mp3">Ako Na Ang Bahala - [Instrumental Version]</option>
+        <option value="assets/media/i16.mp3">Be Your Moon Be My Star - [Instrumental Version]</option>
+        <option value="assets/media/i13.mp3">Dati Palang - [Official Instrumental]</option>
+        <option value="assets/media/i17.mp3">Di Magbabago - [Instrumental Version]</option>
+        <option value="assets/media/i6.mp3">Gabay - [Instrumental Version]</option>
+        <option value="assets/media/i19.mp3">Happy Radio - [Jingle Instrumental]</option>
+        <option value="assets/media/i2.mp3">Hindi Malulupig - [Instrumental Version]</option>
+        <option value="assets/media/i8.mp3">Home Comming - [Samsung UI Improvisation]</option>
+        <option value="assets/media/i20.mp3">Ikaw Na Nga Yon - [Live Arrangement]</option>
+        <option value="assets/media/i4.mp3">Kalangitan - [Instrumental Version]</option>
+        <option value="assets/media/i10.mp3">Kalawakan - [Band Instrumental]</option>
+        <option value="assets/media/i18.mp3">Last Song - [Instrumental Version]</option>
+        <option value="assets/media/i11.mp3">Lay into my Arms - [Official Arrangement]</option>
+        <option value="assets/media/i9.mp3">NVDA Music - [Func Version]</option>
+        <option value="assets/media/i7.mp3">Palayain - [Instrumental Version]</option>
+        <option value="assets/media/i14.mp3">Pasko Sa Piling Mo - [Instrumental Version]</option>
+        <option value="assets/media/i3.mp3">Purihin Ang Panginoon - [Band Instrumental]</option>
+        <option value="assets/media/i1.mp3">Purihin Sya - [Live Arrangement]</option>
+        <option value="assets/media/i12.mp3">Tagpuan - [Acoustic Wedding Instrumental]</option>
+        <option value="assets/media/i35.mp3">Ako Na Ang Bahala - [Secondary Instrumental]</option>
+        <option value="assets/media/i28.mp3">Bebe - [Live Arrangement]</option>
+        <option value="assets/media/i25.mp3">Promises - [Instrumental Version]</option>
+        <option value="assets/media/i37.mp3">Ilata - [Original Instrumental]</option>
+        <option value="assets/media/i24.mp3">MBBTL - [Jingle Instrumental]</option>
+        <option value="assets/media/i22.mp3">Pagbabalik - [Instrumental Version]</option>
+        <option value="assets/media/i36.mp3">Panibagong Kabanata - [Original Instrumental]</option>
+        <option value="assets/media/i23.mp3">Panunumpa - [Orchestral Instrumental]</option>
+        <option value="assets/media/i31.mp3">Project Love - [Instrumental Version]</option>
+        <option value="assets/media/i29.mp3">Purihin Ang Panginoon - [Studio Version]</option>
+        <option value="assets/media/i26.mp3">Sa Ugoy Ng Duyan - [Cinematic Instrumental]</option>
+        <option value="assets/media/i27.mp3">Sana'y Maulit Muli - [Orchestral Instrumental]</option>
+        <option value="assets/media/i30.mp3">Tinadhana - [Band Arrangement]</option>
+        <option value="assets/media/i32.mp3">Trust Me - [Piano Instrumental]</option>
+        <option value="assets/media/i33.mp3">Walang Kapalit - [Instrumental Version]</option>
+        <option value="assets/media/i34.mp3">Wish 1075 - [Rock Arrangement]</option>
+      </select>
+
+      <div id="playerDisplay">
+        <div class="now-playing-title" id="trackTitle">Ready to Play</div>
+        <audio id="mainAudio" controls>
+          <source id="audioSource" src="" type="audio/mpeg">
+        </audio>
+      </div>
+      
+      <div id="placeholder" style="text-align: center; color: #555; font-style: italic; margin-top: 10px;">
+        "Pag Jammers Ka, Iba Ka!" - Choose a track above.
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <span>Jammers Music Entertainment</span>. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    window.onload = function() {
+        const picker = document.getElementById('musicPicker');
+        const options = Array.from(picker.options).slice(1);
+        options.sort((a, b) => a.text.localeCompare(b.text));
+        options.forEach(opt => picker.add(opt));
+    };
+
+    function toggleMenu() {
+      document.getElementById('navDrawer').classList.toggle('active');
+      document.querySelector('.drawer-overlay').classList.toggle('active');
+      const icon = document.getElementById('menuIcon');
+      icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times');
+    }
+
+    function toggleSection(id) {
+      const element = document.getElementById(id);
+      element.style.display = (element.style.display === "block") ? "none" : "block";
+    }
+
+    function playSelectedTrack() {
+      const picker = document.getElementById('musicPicker');
+      const display = document.getElementById('playerDisplay');
+      const placeholder = document.getElementById('placeholder');
+      const audio = document.getElementById('mainAudio');
+      const source = document.getElementById('audioSource');
+      const titleDisplay = document.getElementById('trackTitle');
+
+      if (picker.value !== "") {
+        display.style.display = "block";
+        placeholder.style.display = "none";
+        const selectedText = picker.options[picker.selectedIndex].text;
+        titleDisplay.innerHTML = `<i class="fa fa-volume-up"></i> Now Playing: ${selectedText}`;
+        source.src = picker.value;
+        audio.load();
+        audio.play();
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Package Bundles | Jammers Music Entertainment</title>
+  
+  <meta name="description" content="Save more with Jammers Music Entertainment bundles. Combined jingle, voice-over, and instrumental services for your business.">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.css">
+
+  <style>
+    /* Global Styles & Branding */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Roboto', sans-serif; background: #0a0a0a; color: #fff; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration:none; color: inherit; transition: 0.3s; }
+
+    /* BURGER MENU & DRAWER NAVIGATION (Accordion Style) */
+    .menu-btn {
+      position: fixed; top: 20px; right: 20px; z-index: 1100;
+      background: #ff4b2b; color: white; border: none;
+      width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .nav-drawer {
+      position: fixed; top: 0; right: -320px; width: 320px; height: 100%;
+      background: #111; z-index: 1090; transition: 0.4s ease;
+      padding-top: 80px; border-left: 2px solid #ff4b2b; overflow-y: auto;
+    }
+    .nav-drawer.active { right: 0; }
+    .drawer-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7); z-index: 1080; display: none;
+    }
+    .drawer-overlay.active { display: block; }
+
+    .drawer-section { border-bottom: 1px solid #222; }
+    .collapse-trigger {
+      width: 100%; padding: 18px 25px; background: none; border: none;
+      color: #ffd700; font-family: 'Montserrat'; font-weight: 800;
+      text-transform: uppercase; text-align: left; display: flex;
+      justify-content: space-between; align-items: center; cursor: pointer;
+    }
+    .collapse-content { display: none; background: #0a0a0a; }
+    .nav-drawer ul { list-style: none; padding: 0; }
+    .nav-drawer ul li a {
+      padding: 12px 30px; display: flex; align-items: center; gap: 12px;
+      font-size: 0.8rem; color: #ccc; text-transform: uppercase; border-bottom: 1px solid #1a1a1a;
+    }
+    .nav-drawer ul li a:hover { color: #ff4b2b; background: #161616; }
+
+    /* Unified Header */
+    header {
+      background: linear-gradient(90deg, #b30000, #ff4b2b);
+      padding: 15px 20px; text-align:center; position: sticky;
+      top:0; z-index:1000; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .header-top { display: flex; align-items: center; justify-content: center; gap: 15px; }
+    .header-top img { height: 60px; width: auto; }
+    .header-top h1 {
+      font-family: 'Montserrat', sans-serif; font-size: 1.8rem;
+      text-transform: uppercase; letter-spacing: 1px; font-weight: 800;
+    }
+    header p { color:#ffd700; font-size:1rem; font-style: italic; }
+
+    /* Bundle Card Enhancements */
+    .bundle-card {
+      background: linear-gradient(145deg, #1a1a1a, #222);
+      padding: 40px 30px; border-radius: 25px; border: 1px solid #333;
+      text-align: center; transition: all 0.4s ease; height: 100%;
+      display: flex; flex-direction: column; position: relative;
+    }
+    .bundle-card:hover { transform: translateY(-15px); border-color: #ffd700; }
+    .bundle-card h3 { font-family: 'Montserrat', sans-serif; color: #ffd700; font-size: 1.6rem; text-transform: uppercase; }
+    .bundle-card .target { font-size: 0.9rem; color: #ff4b2b; font-weight: bold; text-transform: uppercase; margin-bottom: 25px; display: block; }
+    .price-circle {
+      background: linear-gradient(135deg, #b30000, #ff4b2b);
+      width: 130px; height: 130px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 30px; font-size: 1.7rem; font-weight: 800;
+      border: 4px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.6); color: #fff;
+    }
+    .bundle-card ul { list-style: none; text-align: left; padding: 0; margin-bottom: 30px; flex-grow: 1; }
+    .bundle-card li { margin-bottom: 15px; font-size: 0.95rem; color: #ddd; display: flex; align-items: flex-start; gap: 12px; }
+    .bundle-card li i { color: #ffd700; font-size: 1rem; margin-top: 4px; }
+
+    .addon-box { background: rgba(255, 215, 0, 0.05); padding: 40px; border-radius: 20px; border: 1px dashed #ffd700; margin-top: 60px; }
+    .addon-box h4 { color: #ffd700; font-family: 'Montserrat'; text-transform: uppercase; margin-bottom: 25px; }
+    .addon-item { font-size: 1.1rem; padding: 10px 20px; background: #111; border-radius: 10px; border: 1px solid #333; }
+    .addon-item strong { color: #ff4b2b; }
+
+    footer { background:#050505; padding:40px 20px; text-align:center; margin-top:60px; border-top: 1px solid #333; }
+    footer span { color: #ffd700; font-weight: bold; }
+    .footer-links { margin-top: 15px; }
+    .footer-links a { color: #888; font-size: 0.8rem; margin: 0 10px; }
+  </style>
+</head>
+<body>
+
+  <button class="menu-btn" onclick="toggleMenu()">
+    <i class="fa fa-bars" id="menuIcon"></i>
+  </button>
+
+  <div class="drawer-overlay" onclick="toggleMenu()"></div>
+  <nav class="nav-drawer" id="navDrawer">
+    <div class="drawer-section">
+      <a href="index.html" style="padding: 18px 25px; display: block; color: #ffd700; font-weight: 800;">HOME</a>
+    </div>
+
+    <div class="drawer-section">
+      <button class="collapse-trigger" onclick="toggleSection('servMenu')">
+        ALL SERVICES <i class="fa fa-chevron-down"></i>
+      </button>
+      <div id="servMenu" class="collapse-content">
+        <ul>
+      <li><a href="about.html"><i class="fa fa-info-circle"></i> ABOUT JAMMERS</a></li>
+          <li><a href="package.html"><i class="fa fa-gift"></i> PROMO BUNDLE PACKAGES</a></li>
+          <li><a href="jingle.html"><i class="fa fa-bullhorn"></i> BUSINESS JINGLE PRODUCTION</a></li>
+          <li><a href="instrumentals.html"><i class="fa fa-music"></i> INSTRUMENTAL SHOWCASE</a></li>
+          <li><a href="radio.html"><i class="fa fa-microphone"></i> RADIO & PODCAST PRODUCTION</a></li>
+          <li><a href="gigs.html"><i class="fa fa-calendar"></i> LIVE PERFORMANCES</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <button class="collapse-trigger" onclick="toggleSection('faqMenu')">
+        SUPPORT & FAQS <i class="fa fa-chevron-down"></i>
+      </button>
+      <div id="faqMenu" class="collapse-content">
+        <ul>
+          <li><a href="faq1.html"><i class="fa fa-question-circle"></i> FREQUENTLY ASKED QUESTIONS</a></li>
+          <li><a href="legal.html"><i class="fa fa-shield"></i> PRIVACY POLICY</a></li>
+          <li><a href="legal.html#terms"><i class="fa fa-file-text"></i> TERMS OF SERVICE</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <a href="contact-details.html" style="padding: 15px 25px; display: block; color: #ccc; font-size: 0.85rem;"><i class="fa fa-phone" style="margin-right:10px; color:#ff4b2b;"></i> CONTACT US</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="header-top">
+      <img src="assets/img/logo.png" alt="Jammers Logo">
+      <h1>Jammers Music Entertainment</h1>
+    </div>
+    <p>"Pag Jammers ka, iba ka"</p>
+  </header>
+
+  <main class="container py-5">
+    <div class="text-center mb-5">
+      <h2 style="font-family: 'Montserrat', sans-serif; color: #ffd700; text-transform: uppercase; font-size: 2.5rem; font-weight: 900;">Promo Bundle Packages</h2>
+      <p class="lead text-muted">The ultimate audio solutions for your brand's success.</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <div class="bundle-card">
+          <h3>Package A</h3>
+          <span class="target">Starter Business</span>
+          <div class="price-circle">₱8,000</div>
+          <ul>
+            <li><i class="fa fa-star"></i> Original Jingle (2 mins)</li>
+            <li><i class="fa fa-star"></i> Voice-Over (30 secs)</li>
+            <li><i class="fa fa-star"></i> Instrumental included</li>
+            <li><i class="fa fa-star"></i> 3 Free Revisions</li>
+          </ul>
+          <a href="contact-details.html" class="btn btn-outline-danger w-100 py-2" style="border-radius: 10px; font-weight: bold;">BOOK NOW</a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="bundle-card" style="border-color: #ffd700;">
+          <div class="badge bg-warning text-dark position-absolute top-0 start-50 translate-middle px-3 py-1" style="border-radius: 20px; font-weight: bold; z-index: 10;">MOST POPULAR</div>
+          <h3>Package B</h3>
+          <span class="target">Standard Promo</span>
+          <div class="price-circle">₱11,000</div>
+          <ul>
+            <li><i class="fa fa-star"></i> Original Jingle (3 mins)</li>
+            <li><i class="fa fa-star"></i> Voice-Over (1 min)</li>
+            <li><i class="fa fa-star"></i> Instrumental included</li>
+            <li><i class="fa fa-star"></i> 3 Free Revisions</li>
+          </ul>
+          <a href="contact-details.html" class="btn btn-danger w-100 py-2" style="border-radius: 10px; font-weight: bold; background: #ff4b2b; border:none;">BOOK NOW</a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-12">
+        <div class="bundle-card">
+          <h3>Package C</h3>
+          <span class="target">Full Campaign</span>
+          <div class="price-circle">₱14,000</div>
+          <ul>
+            <li><i class="fa fa-star"></i> Original Jingle (3 mins)</li>
+            <li><i class="fa fa-star"></i> Extended Voice-Over</li>
+            <li><i class="fa fa-star"></i> Instrumental included</li>
+            <li><i class="fa fa-star"></i> 3 Free Revisions</li>
+          </ul>
+          <a href="contact-details.html" class="btn btn-outline-danger w-100 py-2" style="border-radius: 10px; font-weight: bold;">BOOK NOW</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="addon-box text-center">
+      <h4><i class="fa fa-plus-circle"></i> Optional Add-ons</h4>
+      <div class="row g-3 justify-content-center">
+        <div class="col-auto"><div class="addon-item">Full Rights Buyout: <strong>+ ₱5,000</strong></div></div>
+        <div class="col-auto"><div class="addon-item">Extra Revision: <strong>₱500</strong></div></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <span>Jammers Music Entertainment</span>. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navDrawer').classList.toggle('active');
+      document.querySelector('.drawer-overlay').classList.toggle('active');
+      const icon = document.getElementById('menuIcon');
+      icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times');
+    }
+
+    function toggleSection(id) {
+      const element = document.getElementById(id);
+      element.style.display = (element.style.display === "block") ? "none" : "block";
+    }
+  </script>
+
+</body>
+</html>
