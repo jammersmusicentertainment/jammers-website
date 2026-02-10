@@ -1,0 +1,55 @@
+/* --- JAMMERS CUSTOM THEME OVERRIDE --- */
+
+:root {
+    --jammers-red: #b30000;
+    --jammers-gold: #ffd700;
+    --jammers-dark: #0a0a0a;
+    --jammers-gradient: linear-gradient(90deg, #b30000, #ff4b2b);
+}
+
+/* Palitan ang default blue buttons ng Jammers Red */
+.btn-primary {
+    background: var(--jammers-gradient) !important;
+    border: none !important;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 5px 15px rgba(179, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Custom Navigation Bar */
+.navbar {
+    background: var(--jammers-dark) !important;
+    border-bottom: 2px solid var(--jammers-red);
+}
+
+.navbar-brand, .nav-link {
+    color: var(--jammers-gold) !important;
+}
+
+/* Background ng buong site */
+body {
+    background-color: var(--jammers-dark);
+    color: #ffffff;
+}
+
+/* Custom Cards para sa Services */
+.card {
+    background: #1a1a1a !important;
+    border: 1px solid #333 !important;
+    border-bottom: 4px solid var(--jammers-red) !important;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.card:hover {
+    border-bottom: 4px solid var(--jammers-gold) !important;
+}
+
+/* Text Highlights */
+.text-primary {
+    color: var(--jammers-gold) !important;
+}

@@ -1,0 +1,170 @@
+/* --- JAMMERS MUSIC ENTERTAINMENT GLOBAL STYLES --- */
+
+/* 1. Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s;
+}
+
+/* 2. Unified Header Section */
+header {
+    background: linear-gradient(90deg, #b30000, #ff4b2b);
+    padding: 15px 20px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-top img {
+    height: 60px;
+    width: auto;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+}
+
+.header-top h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+header p {
+    font-weight: 500;
+    color: #ffd700;
+    font-size: 1rem;
+    font-style: italic;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* 3. Navigation */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+nav ul li a {
+    font-weight: 500;
+    color: #fff;
+    font-size: 0.9rem;
+    padding: 5px 10px;
+}
+
+nav ul li a:hover, nav ul li a.active {
+    color: #ffd700;
+}
+
+/* 4. Common Components (Cards, Sections) */
+main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+.page-card, .service-card, .contact-card {
+    background: linear-gradient(145deg, #1a1a1a, #262626);
+    padding: 30px;
+    border-radius: 15px;
+    border-bottom: 4px solid #b30000;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.page-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(179,0,0,0.3);
+    border-color: #ffd700;
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: #ffd700;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+/* 5. Footer Section */
+footer {
+    background: #050505;
+    padding: 40px 20px;
+    text-align: center;
+    margin-top: 40px;
+    color: #aaa;
+    border-top: 1px solid #333;
+}
+
+footer a {
+    color: #ff4b2b;
+    margin: 0 10px;
+}
+
+footer a:hover {
+    color: #ffd700;
+}
+
+.copyright span {
+    color: #ffd700;
+    font-weight: bold;
+}
+
+/* 6. Form Styles (Para sa Index at Contact) */
+.contact-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    padding: 12px;
+    color: #fff;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.submit-btn {
+    background: linear-gradient(90deg, #b30000, #ff4b2b);
+    color: #fff;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Responsive Fix */
+@media (max-width: 768px) {
+    .contact-form { grid-template-columns: 1fr; }
+    .header-top h1 { font-size: 1.4rem; }
+}
